@@ -277,76 +277,87 @@ class Size
      */
     public function align($position, $offset_x = 0, $offset_y = 0)
     {
-        switch (strtolower($position)) {
+        $positionSplitter = explode("-", $position);
+        $isNumeric = false;
+        foreach ( $positionSplitter as $pos ) {
+            if ( (float)$pos == $pos ) {
+                $x = (float)$pos[0] * $this->width;
+                $y = (float)$pos[0] * $this->height;
+                $isNumeric = true;
+            }
+        }
+        if ( !$isNumeric ) {
+            switch (strtolower($position)) {
 
-            case 'top':
-            case 'top-center':
-            case 'top-middle':
-            case 'center-top':
-            case 'middle-top':
-                $x = intval($this->width / 2);
-                $y = 0 + $offset_y;
-                break;
+                case 'top':
+                case 'top-center':
+                case 'top-middle':
+                case 'center-top':
+                case 'middle-top':
+                    $x = intval($this->width / 2);
+                    $y = 0 + $offset_y;
+                    break;
 
-            case 'top-right':
-            case 'right-top':
-                $x = $this->width - $offset_x;
-                $y = 0 + $offset_y;
-                break;
+                case 'top-right':
+                case 'right-top':
+                    $x = $this->width - $offset_x;
+                    $y = 0 + $offset_y;
+                    break;
 
-            case 'left':
-            case 'left-center':
-            case 'left-middle':
-            case 'center-left':
-            case 'middle-left':
-                $x = 0 + $offset_x;
-                $y = intval($this->height / 2);
-                break;
+                case 'left':
+                case 'left-center':
+                case 'left-middle':
+                case 'center-left':
+                case 'middle-left':
+                    $x = 0 + $offset_x;
+                    $y = intval($this->height / 2);
+                    break;
 
-            case 'right':
-            case 'right-center':
-            case 'right-middle':
-            case 'center-right':
-            case 'middle-right':
-                $x = $this->width - $offset_x;
-                $y = intval($this->height / 2);
-                break;
+                case 'right':
+                case 'right-center':
+                case 'right-middle':
+                case 'center-right':
+                case 'middle-right':
+                    $x = $this->width - $offset_x;
+                    $y = intval($this->height / 2);
+                    break;
 
-            case 'bottom-left':
-            case 'left-bottom':
-                $x = 0 + $offset_x;
-                $y = $this->height - $offset_y;
-                break;
+                case 'bottom-left':
+                case 'left-bottom':
+                    $x = 0 + $offset_x;
+                    $y = $this->height - $offset_y;
+                    break;
 
-            case 'bottom':
-            case 'bottom-center':
-            case 'bottom-middle':
-            case 'center-bottom':
-            case 'middle-bottom':
-                $x = intval($this->width / 2);
-                $y = $this->height - $offset_y;
-                break;
+                case 'bottom':
+                case 'bottom-center':
+                case 'bottom-middle':
+                case 'center-bottom':
+                case 'middle-bottom':
+                    $x = intval($this->width / 2);
+                    $y = $this->height - $offset_y;
+                    break;
 
-            case 'bottom-right':
-            case 'right-bottom':
-                $x = $this->width - $offset_x;
-                $y = $this->height - $offset_y;
-                break;
+                case 'bottom-right':
+                case 'right-bottom':
+                    $x = $this->width - $offset_x;
+                    $y = $this->height - $offset_y;
+                    break;
 
-            case 'center':
-            case 'middle':
-            case 'center-center':
-            case 'middle-middle':
-                $x = intval($this->width / 2);
-                $y = intval($this->height / 2);
-                break;
+                case 'center':
+                case 'middle':
+                case 'center-center':
+                case 'middle-middle':
+                    $x = intval($this->width / 2);
+                    $y = intval($this->height / 2);
+                    break;
 
-            default:
-            case 'top-left':
-            case 'left-top':
-                $x = 0 + $offset_x;
-                $y = 0 + $offset_y;
-                break;
+                default:
+                case 'top-left':
+                case 'left-top':
+                    $x = 0 + $offset_x;
+                    $y = 0 + $offset_y;
+                    break;
+            }
         }
 
         $this->pivot->setPosition($x, $y);
