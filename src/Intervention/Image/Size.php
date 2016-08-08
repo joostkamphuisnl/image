@@ -278,11 +278,12 @@ class Size
     public function align($position, $offset_x = 0, $offset_y = 0)
     {
         $positionSplitter = explode("-", $position);
+
         $isNumeric = false;
         foreach ( $positionSplitter as $pos ) {
-            if ( (float)$pos == $pos ) {
-                $x = (float)$pos[0] * $this->width;
-                $y = (float)$pos[0] * $this->height;
+            if ( (float)$pos."" === $pos ) {
+                $x = (float)$positionSplitter[0] * $this->width;
+                $y = (float)$positionSplitter[1] * $this->height;
                 $isNumeric = true;
             }
         }
